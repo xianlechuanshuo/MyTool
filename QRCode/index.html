@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>使用QRCode.js生成二维码</title>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			background-color: #F7F7F7;
+		}	
+		input{
+			width: 300px;
+		}
+		section{
+			margin: 30px auto;
+			text-align: center;
+		}
+		section div{
+			width: 256px;
+			height: 256px;
+			margin: 5px auto;
+		}
+	</style>
+</head>
+<body>
+	<section>
+	<!--注意url必须带上"http://"或"https://"，否则用微信扫出来，
+	    只显示网址名文本，不会跳转到这个网址-->
+		<input type="url" id="txtUrl" value="http://www.baidu.com">
+		<div id="qrcode"></div>
+	</section>
+</body>
+</html>
+ <script src="qrcode.js"></script> 
+<script>
+	var qrcode = new QRCode('qrcode');
+	var url=document.getElementById("txtUrl");
+	url.focus();
+	url.oninput=function(){
+		qrcode.makeCode(this.value); // 更换二维码内容
+	}
+	url.onblur=function(){
+		qrcode.makeCode(this.value); // 更换二维码内容
+	}
+	// url.onkeydown=function(e){
+	// 	if (e.keyCode == 13) {
+	// 		qrcode.makeCode(this.value); // 更换二维码内容
+	// 	}
+	// }
+</script>
