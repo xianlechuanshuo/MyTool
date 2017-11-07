@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+	
+	// function getBaseNP(c){var a={artHit:0,busterHit:0,quickHit:0,exHit:0,npbase:0,npbaseA:0,npbaseB:0,npbaseQ:0,npbaseEx:0,npUp:0,artUp:0,busterUp:0,quickUp:0,npHit:0,npType:1},b;for(b in master.mstSvt)if(master.mstSvt[b].id==c)break;for(var f in master.mstSvtLimit)if(master.mstSvtLimit[f].svtId==c)break;for(var d in master.mstSvtCard)if(master.mstSvtCard[d].svtId==c)1==master.mstSvtCard[d].cardId?a.artHit=master.mstSvtCard[d].normalDamage.length:2==master.mstSvtCard[d].cardId?a.busterHit=master.mstSvtCard[d].normalDamage.length: 3==master.mstSvtCard[d].cardId?a.quickHit=master.mstSvtCard[d].normalDamage.length:4==master.mstSvtCard[d].cardId&&(a.exHit=master.mstSvtCard[d].normalDamage.length);else if(0!=a.artHit&&0!=a.busterHit&&0!=a.quickHit&&0!=a.exHit)break;for(var g in master.mstSvtTreasureDevice)if(master.mstSvtTreasureDevice[g].svtId==master.mstSvt[b].id&&100!=master.mstSvtTreasureDevice[g].treasureDeviceId&&1==master.mstSvtTreasureDevice[g].num){a.npType=master.mstSvtTreasureDevice[g].cardId;a.npHit=master.mstSvtTreasureDevice[g].damage.length; for(e in tdDetail)if(tdDetail[e][0]==master.mstSvtTreasureDevice[g].treasureDeviceId&&-1==tdDetail[e][1].search(/\u653b\u64ca[^\u529b]|\u653b\u6483[^\u529b]/)){a.npHit=0;break}for(d in master.mstTreasureDeviceLv)master.mstTreasureDeviceLv[d].treaureDeviceId==master.mstSvtTreasureDevice[g].treasureDeviceId&&(a.npbase=master.mstTreasureDeviceLv[d].tdPoint,a.npbaseA=master.mstTreasureDeviceLv[d].tdPointA,a.npbaseB=master.mstTreasureDeviceLv[d].tdPointB,a.npbaseQ=master.mstTreasureDeviceLv[d].tdPointQ, a.npbaseEx=master.mstTreasureDeviceLv[d].tdPointEx)}for(d in master.mstSvt[b].classPassive)for(var e in master.mstSkillLv)if(master.mstSvt[b].classPassive[d]==master.mstSkillLv[e].skillId){for(var h in master.mstSkillLv[e].funcId)100==master.mstSkillLv[e].funcId[h]&&(a.quickUp+=parseInt(master.mstSkillLv[e].svals[h].replace(/\[|\]/g,"").split(/,/)[3])),109==master.mstSkillLv[e].funcId[h]&&(a.artUp+=parseInt(master.mstSkillLv[e].svals[h].replace(/\[|\]/g,"").split(/,/)[3])),118==master.mstSkillLv[e].funcId[h]&& (a.busterUp+=parseInt(master.mstSkillLv[e].svals[h].replace(/\[|\]/g,"").split(/,/)[3]));break}return a}
+	// console.log(getBaseNP(402400));
+    function svtidChange(){
+        var c=getBaseNP(svtid.value);
+        in_np.value=c.npUp/10;
+        in_art.value=c.artUp/10;//被动蓝卡BUFF
+        in_quick.value=c.quickUp/10;//被动绿卡BUFF
+        $("#svtface").css("background-image","url(common/images/icon/faces/"+svtid.value+"0.png)");
+        svtCal(svtid.value)
+    }
+
+  (function () { 
+  		//https://kazemai.github.io/fgo-vz/np_get.html
+		let result=[];
+        for (let i = 0; i < svtid.options.length; i++) {
+        	let opt=svtid.options[i];
+        	let d=opt.value;//302000
+        	let servantName=opt.innerHTML;
+        	let begin=servantName.indexOf(".")+1;
+        	let end=servantName.indexOf(" ");
+        	let no=servantName.substring(begin,end);
+        	if(no==0)continue;
+        	let a=getBaseNP(d);
+
+            // {"artHit":2,"busterHit":1,"quickHit":3,"exHit":4,"npbase":71,"npbaseA":71,"npbaseB":71,"npbaseQ":71,"npbaseEx":71,"npUp":0,"artUp":50,"busterUp":0,"quickUp":0,"npHit":5,"npType":1}            
+            if(no==132)console.log(JSON.stringify(a));//输出小莫的np基础数据
+            
+        	var npObj={
+        		n:no,//从者编号
+        		h:a.npHit,//宝具Hit数
+                a:a.artUp/10,////被动蓝卡BUFF
+                q:a.quickUp/10//被动绿卡BUFF
+        	};
+        	result.push(npObj);
+        }
+     
+	    // result=JSON.stringify(result).replace(/\"/gi,"");
+     	// console.log("var lvs="+result);
+     	console.log(JSON.stringify(result));
+    })();
+
+
+
+
+
+</script>

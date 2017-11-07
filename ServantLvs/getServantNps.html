@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script type="text/javascript">
+var jQ1=jQuery.noConflict();
+function getTreasureHit(no){
+	jQ1.getJSON('https://xianlechuanshuo.github.io/fgo/js/nps.json', {rd:Math.random()}, function(json, textStatus) {
+			if (textStatus=="success") {
+				json.forEach(function(j){
+					if(j.n==no)console.log(j);
+				});
+			}
+	});
+}
+getTreasureHit(132);
+
+</script>
