@@ -15,11 +15,19 @@ function getTreasureHit(no){
 	jQ1.getJSON('https://xianlechuanshuo.github.io/fgo/js/nps.json', {rd:Math.random()}, function(json, textStatus) {
 			if (textStatus=="success") {
 				json.forEach(function(j){
-					if(j.n==no)console.log(j);
+					if(j.n==no){
+						console.log(j);
+						return {
+							hit:j.h,
+							np:0.71,
+							artsBuff:j.a,
+							quickBuff:j.q
+						};
+					}
 				});
 			}
 	});
 }
-getTreasureHit(132);
-
+var a=getTreasureHit(132);
+console.log(a);
 </script>
